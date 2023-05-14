@@ -6,6 +6,7 @@ import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import Rank from './components/Rank/Rank';
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
 import SignIn from './components/SignIn/SignIn';
+import Register from './components/Register/Register';
 import './App.css';
 
 const returnClarifaiRequestOptions = (imageUrl) => {
@@ -93,14 +94,18 @@ class App extends Component {
         <div className = "App" >
             <ParticlesBg type = "cobweb" bg = {true}/> 
             <Navigation onRouteChange={this.signIn}/>
-          {this.state.route === 'signin'? <SignIn onRouteChange = {this.signIn}/> : 
-          <div>
-            <Logo/>
-            <Rank/>
-            <ImageLinkForm onInputChange = { this.onInputChange } onButtonSubmit = { this.onSubmit }/> 
-            <FaceRecognition box = { this.state.box } imageUrl = { this.state.imageUrl }/>
-          </div>  
-          }
+          {this.state.route === 'home'? 
+            <div>
+              <Logo/>
+              <Rank/>
+              <ImageLinkForm onInputChange = { this.onInputChange } onButtonSubmit = { this.onSubmit }/> 
+              <FaceRecognition box = { this.state.box } imageUrl = { this.state.imageUrl }/>
+            </div>
+         : (this.state.route === 'signin'?
+              <SignIn onRouteChange = {this.signIn}/> 
+         : <Register onRouteChange={this.signIn}/>
+         )
+        }
         </div>
         );
     }
