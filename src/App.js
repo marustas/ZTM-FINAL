@@ -85,13 +85,15 @@ class App extends Component {
     onInputChange = (event) => {
         this.setState({ input: event.target.value })
     }
-
+    signIn = (route) =>{
+      this.setState({ route: route })
+    }
     render() {
         return ( 
         <div className = "App" >
-            <ParticlesBg type = "cobweb" bg = { true }/> 
-            <Navigation/>
-          {this.state.route === 'signin'? <SignIn/> : 
+            <ParticlesBg type = "cobweb" bg = {true}/> 
+            <Navigation onRouteChange={this.signIn}/>
+          {this.state.route === 'signin'? <SignIn onRouteChange = {this.signIn}/> : 
           <div>
             <Logo/>
             <Rank/>
