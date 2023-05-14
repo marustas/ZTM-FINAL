@@ -51,7 +51,8 @@ class App extends Component {
             input: '',
             imageUrl: '',
             box: {},
-            route: 'signin'
+            route: 'signin',
+            isSignedIn: false
         }
     }
 
@@ -87,13 +88,18 @@ class App extends Component {
         this.setState({ input: event.target.value })
     }
     signIn = (route) =>{
+      if(route === 'signout'){
+        this.setState({isSignedIn: false})
+      }else if(route === 'home'){
+        this.setState({isSignedIn: true})
+      }
       this.setState({ route: route })
     }
     render() {
         return ( 
         <div className = "App" >
             <ParticlesBg type = "cobweb" bg = {true}/> 
-            <Navigation onRouteChange={this.signIn}/>
+            <Navigation isSignedIn={this.state.isSignedIn} onRouteChange={this.signIn}/>
           {this.state.route === 'home'? 
             <div>
               <Logo/>
