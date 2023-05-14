@@ -96,18 +96,19 @@ class App extends Component {
       this.setState({ route: route })
     }
     render() {
+      const {isSignedIn, box, imageUrl, route} = this.state;
         return ( 
         <div className = "App" >
             <ParticlesBg type = "cobweb" bg = {true}/> 
-            <Navigation isSignedIn={this.state.isSignedIn} onRouteChange={this.signIn}/>
-          {this.state.route === 'home'? 
+            <Navigation isSignedIn={isSignedIn} onRouteChange={this.signIn}/>
+          {route === 'home'? 
             <div>
               <Logo/>
               <Rank/>
               <ImageLinkForm onInputChange = { this.onInputChange } onButtonSubmit = { this.onSubmit }/> 
-              <FaceRecognition box = { this.state.box } imageUrl = { this.state.imageUrl }/>
+              <FaceRecognition box = { box } imageUrl = { imageUrl }/>
             </div>
-         : (this.state.route === 'signin'?
+         : (route === 'signin'?
               <SignIn onRouteChange = {this.signIn}/> 
          : <Register onRouteChange={this.signIn}/>
          )
