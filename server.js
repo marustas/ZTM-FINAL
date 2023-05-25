@@ -6,6 +6,10 @@ app.get('/', (req, res) => {
     res.send('working as expected');
 })
 
+app.post('/signin', (req, res) => {
+    res.send('sign in')
+})
+
 app.listen(3000, () => {
     console.log('all good');
 })
