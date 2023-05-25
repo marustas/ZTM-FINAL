@@ -48,7 +48,7 @@ app.post('/register', (req, res) => {
         joined: new Date()
     })
 
-    res.json(database.users[database.users.length - 1])
+    res.json(database.users[database.users.length - 1]);
 })
 
 app.get('/profile/:id', (req, res) => {
@@ -61,7 +61,22 @@ app.get('/profile/:id', (req, res) => {
         }
     })
     if (!found) {
-        res.status(404).json('user not found');
+        res.status(400).json('user not found');
+    }
+})
+
+app.put('/image', (req, res) => {
+    const { id } = req.body;
+    let found = false;
+    database.users.forEach(user => {
+        if (user.id === id) {
+            found = true;
+            user.entries++;
+            return res.json(user.entries);
+        }
+    })
+    if (!found) {
+        res.status(400).json('user not found');
     }
 })
 
@@ -70,7 +85,7 @@ app.listen(3000, () => {
 })
 
 /*
-/ --> res = this is not working
+/ --> res = this is not working --done
 /signin --> POST = successful --done
 /register --> POST = user --done
 /profile/:userId --> GET = user --done
