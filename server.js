@@ -51,6 +51,20 @@ app.post('/register', (req, res) => {
     res.json(database.users[database.users.length - 1])
 })
 
+app.get('/profile/:id', (req, res) => {
+    const { id } = req.params;
+    let found = false;
+    database.users.forEach(user => {
+        if (user.id === id) {
+            found = true;
+            return res.json(user);
+        }
+    })
+    if (!found) {
+        res.status(404).json('user not found');
+    }
+})
+
 app.listen(3000, () => {
     console.log('all good');
 })
@@ -58,7 +72,7 @@ app.listen(3000, () => {
 /*
 / --> res = this is not working
 /signin --> POST = successful --done
-/register --> POST = user
-/profile/:userId --> GET = user
+/register --> POST = user --done
+/profile/:userId --> GET = user --done
 /image --> POST --> user
 */
