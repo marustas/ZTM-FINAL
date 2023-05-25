@@ -12,7 +12,6 @@ const database = {
             gmail: 'ponus@gmail.com',
             password: 'wrongpassword',
             name: 'Asmanus',
-            surname: 'Ramazanus',
             entries: 0,
             joined: new Date()
         },
@@ -21,14 +20,13 @@ const database = {
             gmail: 'moschneishiy@gmail.com',
             password: 'rightpassword',
             name: 'Stasus',
-            surname: 'Yussufus',
             entries: 0,
             joined: new Date()
         }
     ]
 }
 app.get('/', (req, res) => {
-    res.send('working as expected');
+    res.json(database.users);
 })
 
 app.post('/signin', (req, res) => {
@@ -40,7 +38,17 @@ app.post('/signin', (req, res) => {
 })
 
 app.post('/register', (req, res) => {
-    res.json('sign in')
+    const { email, password, name } = req.body;
+    database.users.push({
+        id: '125',
+        name: name,
+        email: email,
+        password: password,
+        entries: 0,
+        joined: new Date()
+    })
+
+    res.json(database.users[database.users.length - 1])
 })
 
 app.listen(3000, () => {
