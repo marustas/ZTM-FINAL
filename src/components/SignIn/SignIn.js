@@ -16,13 +16,12 @@ constructor(props){
     }
 
     onSubmitSignIn=()=>{
-        const {signInEmail, signInPassword} = this.state;
         fetch('http://localhost:3000/signin',{
             method: 'post',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
-                email: signInEmail,
-                password: signInPassword
+                email: this.state.signInEmail,
+                password: this.state.signInPassword
             })
         })
         .then(response=>response.json())
