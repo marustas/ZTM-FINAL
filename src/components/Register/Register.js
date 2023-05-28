@@ -1,6 +1,6 @@
 import React from "react";
 class Register extends React.Component{
-    onstructor(props){
+    constructor(props){
         super(props)
         this.state={
             email:'',
@@ -29,8 +29,8 @@ class Register extends React.Component{
                 })
             })
             .then(response=>response.json())
-            .then(status =>{
-                if(status ==='success'){
+            .then(user =>{
+                if(user){
                 // putting props inside condition breaks the code and the request doesn't go through
                 this.props.onRouteChange('home');
             }
