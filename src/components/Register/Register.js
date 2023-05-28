@@ -3,8 +3,8 @@ class Register extends React.Component{
     onstructor(props){
         super(props)
         this.state={
-            Email:'',
-            Password:'',
+            email:'',
+            password:'',
             name: ''
         }
     }
@@ -18,6 +18,25 @@ class Register extends React.Component{
         onPasswordChange=(event)=>{
             this.setState({password : event.target.value})
         }
+        onSubmitSignIn=()=>{
+            fetch('http://localhost:3000/register',{
+                method: 'post',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    email: this.state.email,
+                    password: this.state.password,
+                    name: this.state.name
+                })
+            })
+            .then(response=>response.json())
+            .then(status =>{
+                if(status ==='success'){
+                // putting props inside condition breaks the code and the request doesn't go through
+                this.props.onRouteChange('home');
+            }
+        })
+        }
+
     render(){
         const {onRouteChange} =this.props;
         return ( 
@@ -28,19 +47,27 @@ class Register extends React.Component{
                         <legend className="f1 fw6 ph0 mh0">Register</legend>
                         <div className="mt3">
                             <label className="db fw6 lh-copy f6" htmlFor="name">Name</label>
-                            <input className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="text" name="name"  id="name"/>
+                            <input className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" 
+                            type="text" name="name"  id="name"
+                            onChange={this.onNameChange}/>
                         </div>
                         <div className="mt3">
                             <label className="db fw6 lh-copy f6" htmlFor="email-address">Email</label>
-                            <input className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="email" name="email-address"  id="email-address"/>
+                            <input className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" 
+                            type="email" name="email-address"  id="email-address"
+                            onChange={this.onEmailChange}/>
                         </div>
                         <div className="mv3">
                             <label className="db fw6 lh-copy f6" htmlFor="password">Password</label>
-                            <input className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="password" name="password"  id="password"/>
+                            <input className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" 
+                            type="password" name="password"  id="password"
+                            onChange={this.onPasswordChange}/>
                         </div>
                         </fieldset>
                         <div className="">
-                        <input className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" type="submit" value="Register" onClick={()=>onRouteChange('home')}/>
+                        <input className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" 
+                        type="submit" value="Register" 
+                        onClick={()=>this.onSumbitSignIn}/>
                         </div>
                     </div>
                 </main>
