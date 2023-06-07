@@ -96,6 +96,7 @@ class App extends Component {
     console.log('submitted');
     // eslint-disable-next-line no-useless-concat
     fetch("https://api.clarifai.com/v2/models/" + "face-detection" + "/outputs", returnClarifaiRequestOptions(this.state.input))
+      .then(response => response.json())
       .then(response => {
         console.log('hi', response)
         if (response) {
@@ -110,9 +111,9 @@ class App extends Component {
             .then(count => {
               this.setState(Object.assign(this.state.user, { entries: count }))
             })
+          this.displayFaceBox(this.calculateFaceLocation(response));
         }
       })
-      .then(result => this.displayFaceBox(this.calculateFaceLocation(result)))
       .catch(err => console.log(err));
   }
 
