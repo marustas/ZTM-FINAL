@@ -117,12 +117,6 @@ class App extends Component {
       .catch(err => console.log(err));
   }
 
-  //   .then(response => response.json())
-  //     .then(result => this.displayFaceBox(this.calculateFaceLocation(result)))
-  //     .catch(err => console.log(err))
-  // }
-
-
   displayFaceBox = (box) => {
     this.setState({ box: box });
   }
