@@ -84,8 +84,8 @@ class App extends Component {
     const height = Number(image.height);
     return {
       leftCol: clarifaiFace.left_col * width,
-      rightCol: width - (clarifaiFace.right_col * width),
       topRow: clarifaiFace.top_row * height,
+      rightCol: width - (clarifaiFace.right_col * width),
       bottomRow: height - (clarifaiFace.bottom_row * height)
     }
   }
@@ -93,11 +93,9 @@ class App extends Component {
   onSubmit = () => {
     this.setState({ imageUrl: this.state.input })
     console.log('click');
-    // eslint-disable-next-line no-useless-concat
     fetch("https://api.clarifai.com/v2/models/" + "face-detection" + "/outputs", returnClarifaiRequestOptions(this.state.input))
       .then(response => response.json)
       .then(result => {
-        console.log('hi', result)
         if (result) {
           fetch('http://localhost:3000/image', {
             method: 'put',
